@@ -67,12 +67,19 @@ class TestGetJson(unittest.TestCase):
 
 class TestMemoize(unittest.TestCase):
     """
-    Test cases for memoize function:
-    "test_memoize" method that makes sure when calling a_property twice,
-    the correct result is returned but a_method is only called once
+    Test cases for memoize function.
+    Methods:
+    - test_memoize: Tests that a_property returns the correct
+    result and a_method is only called once.
     """
     def test_memoize(self):
+        """
+        ditto
+        """
         class TestClass:
+            """
+            a class created to test memoize
+            """
             def a_method(self):
                 return 42
 
