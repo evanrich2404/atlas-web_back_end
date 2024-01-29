@@ -106,7 +106,7 @@ class TestGetJson(unittest.TestCase):
 
 class TestMemoize(unittest.TestCase):
     """
-    Test cases for memoize function.
+    Test cases for memoize decorator.
 
     tests that a method decorated with @memoize is called multiple times,
     the method it decorates is only called once.
