@@ -16,8 +16,6 @@ from utils import (
 )
 
 
-
-
 class TestAccessNestedMap(unittest.TestCase):
     """
     Test cases for access_nested_map function.
