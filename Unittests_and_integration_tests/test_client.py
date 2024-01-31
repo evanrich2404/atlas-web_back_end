@@ -3,7 +3,7 @@
 Tests for client.py
 """
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import patch, PropertyMock
 from parameterized import parameterized
 from utils import (
     access_nested_map,
@@ -23,7 +23,7 @@ class TestGithubOrgClient(unittest.TestCase):
         ("abc",)
     ])
     @patch('client.get_json')
-    def test_org(self, org_name, expected_payload, mock_get_json):
+    def test_org(self, org_name, mock_get_json):
         """
         Tests that GithubOrgClient returns the correct value.
 
@@ -41,4 +41,4 @@ class TestGithubOrgClient(unittest.TestCase):
 
         mock_get_json.assert_called_once_with(
             f"https://api.github.com/orgs/{org_name}")
-        self.assertEqual(response, expected_payload)
+        self.assertEqual(response, {"fake_key": "fake_value"})
