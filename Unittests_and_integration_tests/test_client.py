@@ -13,7 +13,6 @@ from utils import (
 from client import GithubOrgClient
 
 
-
 class TestGithubOrgClient(unittest.TestCase):
     """
     Test cases for client.py and it's class GithubOrgClient
