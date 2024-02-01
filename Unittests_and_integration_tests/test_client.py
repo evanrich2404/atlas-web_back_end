@@ -3,15 +3,16 @@
 Tests for client.py
 """
 import unittest
+import requests
 from unittest.mock import patch, PropertyMock
-from parameterized import parameterized
+from parameterized import parameterized, parameterized_class
 from utils import (
     access_nested_map,
     get_json,
     memoize
 )
 from client import GithubOrgClient
-
+from fixtures import TEST_PAYLOAD
 
 class TestGithubOrgClient(unittest.TestCase):
     """
@@ -99,3 +100,31 @@ class TestGithubOrgClient(unittest.TestCase):
         response = test_client.has_license(repo, license_key)
 
         self.assertEqual(response, expected)
+
+
+@parameterized_class(
+    ("org_payload", "repos_payload", "expected_repos", "apache2_repos"),
+    TEST_PAYLOAD
+)
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        """
+        Set up the class by starting
+        a patcher that mocks requests.get to return example payloads.
+        """
+        cls.get_patcher = patch('requests.get')
+
+        cls.mock_get = cls.get_patcher.start()
+
+        cls.mock_get.side_effect = [
+            cls.org_payload,
+            cls.repos_payload
+        ]
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Tear down the class by stopping the patcher.
+        """
+        cls.get_patcher.stop()
