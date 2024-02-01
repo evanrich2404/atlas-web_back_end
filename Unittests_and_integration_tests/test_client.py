@@ -78,3 +78,24 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(response, ["mock_repo"])
             mock_get_json.assert_called_once_with('mock_url')
             mock_public_repos_url.assert_called_once()
+
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False)
+    ])
+    def test_has_license(self, repo, license_key, expected):
+        """
+        Tests that GithubOrgClient.has_license returns the correct value.
+
+        This test uses parameterized.expand decorator to test multiple inputs
+        for the has_license method.
+
+        Args:
+        - repo: The repo dictionary to test.
+        - license_key: The license key to test.
+        - expected: The expected return value from the has_license method.
+        """
+        test_client = GithubOrgClient("org_name")
+        response = test_client.has_license(repo, license_key)
+
+        self.assertEqual(response, expected)
