@@ -39,7 +39,9 @@ def get_locale():
         return locale
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
+
 def get_user():
+    """GET USER"""
     user_id = request.args.get('login_as')
     if user_id is not None:
         user_id = int(user_id)
