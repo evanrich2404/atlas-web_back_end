@@ -58,3 +58,24 @@ class TestGithubOrgClient(unittest.TestCase):
         response = test_client._public_repos_url
 
         self.assertEqual(response, "mock_url")
+
+    @patch('client.get_json', return_value=[{"name": "mock_repo"}])
+    def test_public_repos(self, mock_get_json):
+        """
+        Tests that public_repos returns the correct value.
+
+        Uses the patch function as a decorator to mock the get_json function,
+        and as a context manager to mock the _public_repos_url property.
+
+        Arg:
+        - mock_get_json: A mock of the get_json function
+        """
+        with patch('client.GithubOrgClient._public_repos_url',
+                   new_callable=PropertyMock) as mock_public_repos_url:
+            mock_public_repos_url.return_value = 'mock_url'
+            test_client = GithubOrgClient('org_name')
+            response = test_client.public_repos()
+
+            self.assertEqual(response, ["mock_repo"])
+            mock_get_json.assert_called_once_with('mock_url')
+            mock_public_repos_url.assert_called_once()
