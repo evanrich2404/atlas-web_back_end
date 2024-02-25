@@ -9,25 +9,23 @@ const displayMessage = require('./0-console');
 // Create an interface for input and output
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 // Ask the user for their name
-displayMessage("Welcome to Holberton School, what is your name?");
+displayMessage('Welcome to Holberton School, what is your name?');
 
 // Section to input their name
 rl.question('', (name) => {
   // Display the name using displayMessage
   displayMessage(`Your name is: ${name}`);
 
-  //Close the readline interface
+  // Close the readline interface
   rl.close();
 });
 
 // Listen for the 'close' event
 rl.on('close', () => {
   // Use displayMessage for the closing message
-  displayMessage("This important software is now closing");
+  displayMessage('This important software is now closing');
 });
-
-
