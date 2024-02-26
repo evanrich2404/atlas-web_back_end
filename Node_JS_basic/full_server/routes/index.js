@@ -1,9 +1,13 @@
 const express = require('express');
 const AppController = require('../controllers/AppController');
-const StudnetController = require('../controllers/StudentController');
+const StudentController = require('../controllers/StudentController');
 
 const router = express.Router();
 
 router.get('/', AppController.getHomepage);
+
+router.get('/students', StudentController.getAllStudents);
+
+router.get('/students/:major', StudentController.getAllStudentsByMajor);
 
 module.exports = router;
